@@ -12,3 +12,18 @@
 2. Run `npm init`
 3. Run `npm install`
 4. Run `node server.js` in the local directory. The port is set to 8080 by default
+
+## MySQL database setup details
+
+User: d3@localhost
+Database: d3hiring
+
+TABLE Teacher_Students
+[teacher_email]
+[student_email]
+
+TABLE Students
+[email]
+[status]
+- 0 // suspended
+- 1 // active
