@@ -1,6 +1,6 @@
 # d3hiring
 
-## Link(s) to the hosted API (if applicable)
+## Link(s) to the hosted API
 
 http://homeless.sg:8080/api/register
 
