@@ -145,7 +145,7 @@ router.route('/unsuspend').post(function(req, res) {
 
 router.route('/retrievefornotifications').post(function(req, res) {
   try {
-    var students = [];
+    //var students = [];
     tasks.retrieveForNotifications(req.body.teacher, req.body.notification, function(err, students) {
       if (err) {
         res.status(500).json({ message: err });

@@ -99,9 +99,17 @@ var tasks = module.exports = {
 
     try {
       // parse notification to extract student names using regex
-      const mentions = notification.match(/@([A-Za-z0-9_]+\S*)/igm);
+      var mentions = notification.match(/@([A-Za-z0-9_]+\S*)/igm);
 
-      const students = new Set(mentions); // ensure distinct values
+      if (mentions !== null) {
+        mentions = mentions.map(function(p){return p.substring(1)});
+      }
+
+      var students = new Set();
+
+      /*
+        students = new Set(mentions.map(function(p){return p.substring(1)})); // ensure distinct values
+      }*/
 
       // find students registered with teacher
       var sql = `SELECT DISTINCT student_email FROM Teachers_Students WHERE teacher_email = ?`;
@@ -109,6 +117,12 @@ var tasks = module.exports = {
         for (var i in rows) {
           students.add(rows[i].student_email);
         }
+        for (var i in mentions) {
+          students.add(mentions[i]);
+        }
+
+        //console.log("students");
+        //console.log(students);
 
         // find students NOT suspended AND are actually stored in the Students table
         var sql = `SELECT email FROM Students WHERE status <> 0 AND email IN (?)`;
@@ -120,6 +134,9 @@ var tasks = module.exports = {
           }
 
           const list = (Array.from(students)).filter(value => -1 !== non_suspended_students.indexOf(value));
+
+          console.log("list");
+          console.log(list);
 
           // return student list
           callback(false, list);
